@@ -18,7 +18,7 @@ namespace sstu
         private void Form1_Load(object sender, EventArgs e)
         {
 
-            dynamicTableLayoutPanelCreate(5);
+            dynamicTableLayoutPanelCreate(3);
         }
         private void dynamicTableLayoutPanelCreate(int N)
         {
@@ -26,9 +26,9 @@ namespace sstu
                 dynamicTableLayoutPanel.Dispose();*/
             dynamicTableLayoutPanel = new TableLayoutPanel();
 
-            dynamicTableLayoutPanel.Location = new System.Drawing.Point(100, 50);
+            dynamicTableLayoutPanel.Location = new System.Drawing.Point(75, 50);
             dynamicTableLayoutPanel.Name = "TableLayoutPanel1";
-            dynamicTableLayoutPanel.Size = new System.Drawing.Size(100, 100);
+            dynamicTableLayoutPanel.Size = new System.Drawing.Size(300, 300);
             dynamicTableLayoutPanel.TabIndex = 0;
 
 
@@ -56,8 +56,6 @@ namespace sstu
             }
             dynamicTableLayoutPanel.BackColor = Color.Aqua;
             Controls.Add(dynamicTableLayoutPanel);
-            MessageBox.Show(
-            "Оно вообще работает?");
         }
         private void checkbutton_Click(object sender, EventArgs e)
         {
