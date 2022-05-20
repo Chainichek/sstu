@@ -4,7 +4,7 @@ namespace sstu
 {
     public partial class Form1 : Form
     {
-                CheckBox[] checkBoxes;
+        CheckBox[] checkBoxes;
         public Form1()
         {
             InitializeComponent();
@@ -49,49 +49,13 @@ namespace sstu
             Controls.Add(dynamicTableLayoutPanel);
         }
 
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             foreach (CheckBox checkBox in checkBoxes)
             {
                 checkBox.ForeColor = checkBox.Checked ? Color.Green : Color.Red;
+                checkBox.AutoCheck = false;
             }
-            /* bool pr1 = checkBox1.Checked;
-             bool pr2 = checkBox2.Checked;
-             bool pr3 = checkBox3.Checked;
-             bool pr4 = checkBox4.Checked;
-             bool pr5 = checkBox5.Checked;
-             bool pr6 = checkBox6.Checked;
-
-             checkBox1.ForeColor = pr1 ? Color.Green : Color.Red;
-
-             if (pr2 == true)
-             {
-                 checkBox2.ForeColor = Color.Green;
-             }
-             Console.WriteLine("21");*/
-        }
-
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void tableLayoutPanel1_Paint_1(object sender, PaintEventArgs e)
-        {
-
-        }
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }
