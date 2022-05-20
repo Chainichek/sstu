@@ -1,9 +1,11 @@
 using System.Data;
+using matrixGen;
 
 namespace sstu
 {
     public partial class Form1 : Form
     {
+        TableLayoutPanel? dynamicTableLayoutPanel;
         CheckBox[] checkBoxes;
         public Form1()
         {
@@ -15,7 +17,14 @@ namespace sstu
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            TableLayoutPanel dynamicTableLayoutPanel = new TableLayoutPanel();
+
+            dynamicTableLayoutPanelCreate(5);
+        }
+        private void dynamicTableLayoutPanelCreate(int N)
+        {
+/*            if (dynamicTableLayoutPanel != null)
+                dynamicTableLayoutPanel.Dispose();*/
+            dynamicTableLayoutPanel = new TableLayoutPanel();
 
             dynamicTableLayoutPanel.Location = new System.Drawing.Point(100, 50);
             dynamicTableLayoutPanel.Name = "TableLayoutPanel1";
@@ -23,39 +32,45 @@ namespace sstu
             dynamicTableLayoutPanel.TabIndex = 0;
 
 
-            dynamicTableLayoutPanel.ColumnCount = 5;
-            dynamicTableLayoutPanel.RowCount = 5;
-
-            dynamicTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
-            dynamicTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
-            dynamicTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
-            dynamicTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
-            dynamicTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
-            dynamicTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            dynamicTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            dynamicTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            dynamicTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            dynamicTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-
-            for (int i = 0; i < 3; i++)
+            dynamicTableLayoutPanel.ColumnCount = dynamicTableLayoutPanel.RowCount = N;
+            for (int i = 0; i < N; i++)
             {
-                for (int j = 0; j < 3; j++)
+                dynamicTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+                dynamicTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            }
+
+            Generate newGenerator = new Generate();//объект генератора
+            Options options = new Options();//объект свойств
+            options.randomize_options();//случайные свойства
+
+            int[,] matrix = newGenerator.matrixGenerate(5, options);//создание матрицы по введенному числу и свойствам
+
+            for (int i = 0; i < N; i++)
+            {
+                for (int j = 0; j < N; j++)
                 {
-                    dynamicTableLayoutPanel.Controls.Add(new Label { Text = "i + j" }, j, i);
+                    Label label = new Label();
+                    label.Text = matrix[i, j].ToString();
+                    dynamicTableLayoutPanel.Controls.Add(label);
                 }
             }
             dynamicTableLayoutPanel.BackColor = Color.Aqua;
-
             Controls.Add(dynamicTableLayoutPanel);
+            MessageBox.Show(
+            "Оно вообще работает?");
         }
-
-        private void button1_Click(object sender, EventArgs e)
+        private void checkbutton_Click(object sender, EventArgs e)
         {
             foreach (CheckBox checkBox in checkBoxes)
             {
                 checkBox.ForeColor = checkBox.Checked ? Color.Green : Color.Red;
                 checkBox.AutoCheck = false;
             }
+        }
+
+        private void genbutton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
