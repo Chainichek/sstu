@@ -5,28 +5,33 @@ namespace sstu
 {
     public partial class Form1 : Form
     {
-        TableLayoutPanel? dynamicTableLayoutPanel;
-        CheckBox[] checkBoxes;
+        TableLayoutPanel? dynamicTableLayoutPanel;//генерирующаяся таблица
+        CheckBox[] checkBoxes;//масив чекеров
+        RadioButton[] radioButtons;//массив переключателей
+        Generate newGenerator = new Generate();//объект генератора
+        Options options = new Options();//объект свойств
         public Form1()
         {
             InitializeComponent();
 
             checkBoxes = new CheckBox[] {checkBox1, checkBox2, checkBox3, checkBox4, checkBox5, checkBox6};
-
+            radioButtons = new RadioButton[] { radioButton1, radioButton2 }; 
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)//Начальное значение размера генерируемой матрицы - 3
         {
 
             dynamicTableLayoutPanelCreate(3);
         }
         private void dynamicTableLayoutPanelCreate(int N)
         {
-/*            if (dynamicTableLayoutPanel != null)
-                dynamicTableLayoutPanel.Dispose();*/
+            /*Удаление матрицы для перегенерации*/
+            if (dynamicTableLayoutPanel != null)
+                dynamicTableLayoutPanel.Dispose();
+            /*Создание матрицы*/
             dynamicTableLayoutPanel = new TableLayoutPanel();
 
-            dynamicTableLayoutPanel.Location = new System.Drawing.Point(75, 50);
+            dynamicTableLayoutPanel.Location = new System.Drawing.Point(50, 35);
             dynamicTableLayoutPanel.Name = "TableLayoutPanel1";
             dynamicTableLayoutPanel.Size = new System.Drawing.Size(300, 300);
             dynamicTableLayoutPanel.TabIndex = 0;
@@ -39,8 +44,6 @@ namespace sstu
                 dynamicTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
             }
 
-            Generate newGenerator = new Generate();//объект генератора
-            Options options = new Options();//объект свойств
             options.randomize_options();//случайные свойства
 
             int[,] matrix = newGenerator.matrixGenerate(5, options);//создание матрицы по введенному числу и свойствам
@@ -49,26 +52,48 @@ namespace sstu
             {
                 for (int j = 0; j < N; j++)
                 {
-                    Label label = new Label();
-                    label.Text = matrix[i, j].ToString();
-                    dynamicTableLayoutPanel.Controls.Add(label);
+                    dynamicTableLayoutPanel.Controls.Add(new Label { Text = matrix[i, j].ToString(), Anchor = AnchorStyles.None, AutoSize = true, Font = new Font("Arial", 20) }); ;//заполенение матрицей
                 }
             }
-            dynamicTableLayoutPanel.BackColor = Color.Aqua;
+
+            dynamicTableLayoutPanel.CellBorderStyle = TableLayoutPanelCellBorderStyle.OutsetDouble;
+
+/*            dynamicTableLayoutPanel.BackColor = Color.Aqua;//мерзкий цвет - любимый ильдара*/
             Controls.Add(dynamicTableLayoutPanel);
         }
         private void checkbutton_Click(object sender, EventArgs e)
         {
-            foreach (CheckBox checkBox in checkBoxes)
+            /*массив булевых значений для работы с foreach*/
+            bool[] optionsCheck = new bool[] { options.reflexive, options.antireflexive, options.symmetry, options.asymmetry, options.antisymmetry, options.transitivie };
+            /*Объединение с массивом чекеров, чтобы идти по ним одновременно*/
+            foreach (var box_options in optionsCheck.Zip(checkBoxes, Tuple.Create))//Новый кортеж элементов
             {
-                checkBox.ForeColor = checkBox.Checked ? Color.Green : Color.Red;
-                checkBox.AutoCheck = false;
+                box_options.Item2.ForeColor = (box_options.Item1)? Color.Green : box_options.Item2.Checked ? Color.Red : Color.Black;//Если значение выбрано и оно  в списке свойств 
+                box_options.Item2.AutoCheck = false;//Выключить изменение чекера
             }
         }
 
-        private void genbutton_Click(object sender, EventArgs e)
+        private void genbutton_Click(object sender, EventArgs e)//кнопка генерации
         {
-
+            foreach (CheckBox checkBox in checkBoxes)//исходное состояние чекеров
+            {
+                checkBox.Checked = false;
+                checkBox.ForeColor = Color.Black;
+                checkBox.AutoCheck = true;
+            }
+            foreach (RadioButton radioButton in radioButtons)
+            {
+                if (radioButton.Checked)
+                    switch (radioButton.Name)
+                    {
+                        case "radioButton1":
+                            dynamicTableLayoutPanelCreate(3);
+                            break;
+                        case "radioButton2":
+                            dynamicTableLayoutPanelCreate(5);
+                            break;
+                    }
+            }
         }
     }
 }
