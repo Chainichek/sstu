@@ -11,21 +11,40 @@ namespace sstu
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            TableLayoutPanel dynamicTableLayoutPanel = new TableLayoutPanel();
+
+            dynamicTableLayoutPanel.Location = new System.Drawing.Point(100, 50);
+            dynamicTableLayoutPanel.Name = "TableLayoutPanel1";
+            dynamicTableLayoutPanel.Size = new System.Drawing.Size(100, 100);
+            dynamicTableLayoutPanel.TabIndex = 0;
+
+
+            dynamicTableLayoutPanel.ColumnCount = 5;
+            dynamicTableLayoutPanel.RowCount = 5;
+
+            dynamicTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+            dynamicTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+            dynamicTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+            dynamicTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+            dynamicTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+            dynamicTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            dynamicTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            dynamicTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            dynamicTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            dynamicTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+
             for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    Label label = new Label();
-                    label.Text = Convert.ToString(i);
-                    tableLayoutPanel1.Controls.Add(label, i, j);
-
+                    dynamicTableLayoutPanel.Controls.Add(new Label { Text = "i + j" }, j, i);
                 }
-                tableLayoutPanel1.ColumnCount = tableLayoutPanel1.ColumnCount + 1;
             }
-            tableLayoutPanel1.ColumnCount = tableLayoutPanel1.ColumnCount -1;
-        }
+            dynamicTableLayoutPanel.BackColor = Color.Aqua;
 
-        private void groupBox1_Enter(object sender, EventArgs e)
+            Controls.Add(dynamicTableLayoutPanel);
+        }
+            private void groupBox1_Enter(object sender, EventArgs e)
         {
 
         }
@@ -40,7 +59,15 @@ namespace sstu
             bool pr5 = property5.Checked;
             bool pr6 = property6.Checked;
 
+            if (pr1 == true)
+            {
+                property1.ForeColor = Color.Red;
+            }
 
+            if (pr2 == true)
+            {
+                property2.ForeColor = Color.Green;
+            }
             Console.WriteLine("21");
         }
 

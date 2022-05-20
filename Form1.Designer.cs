@@ -35,7 +35,6 @@
             this.property5 = new System.Windows.Forms.CheckBox();
             this.property2 = new System.Windows.Forms.CheckBox();
             this.property1 = new System.Windows.Forms.CheckBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
@@ -113,20 +112,6 @@
             this.property1.Text = "Рефлексивность";
             this.property1.UseVisualStyleBackColor = true;
             // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(120, 29);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(131, 100);
-            this.tableLayoutPanel1.TabIndex = 2;
-            this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint_1);
-            // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 2;
@@ -155,7 +140,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.tableLayoutPanel2);
-            this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "Form1";
             this.ShowIcon = false;
             this.Text = "Form1";
@@ -174,7 +158,6 @@
         private CheckBox property4;
         private CheckBox property3;
         private Button button1;
-        private TableLayoutPanel tableLayoutPanel1;
         private TableLayoutPanel tableLayoutPanel2;
     }
 }
