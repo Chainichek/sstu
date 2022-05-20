@@ -4,9 +4,13 @@ namespace sstu
 {
     public partial class Form1 : Form
     {
+                CheckBox[] checkBoxes;
         public Form1()
         {
             InitializeComponent();
+
+            checkBoxes = new CheckBox[] {checkBox1, checkBox2, checkBox3, checkBox4, checkBox5, checkBox6};
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -44,31 +48,32 @@ namespace sstu
 
             Controls.Add(dynamicTableLayoutPanel);
         }
-            private void groupBox1_Enter(object sender, EventArgs e)
+
+        private void groupBox1_Enter(object sender, EventArgs e)
         {
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-
-            bool pr1 = property1.Checked;
-            bool pr2 = property2.Checked;
-            bool pr3 = property3.Checked;
-            bool pr4 = property4.Checked;
-            bool pr5 = property5.Checked;
-            bool pr6 = property6.Checked;
-
-            if (pr1 == true)
+            foreach (CheckBox checkBox in checkBoxes)
             {
-                property1.ForeColor = Color.Red;
+                checkBox.ForeColor = checkBox.Checked ? Color.Green : Color.Red;
             }
+            /* bool pr1 = checkBox1.Checked;
+             bool pr2 = checkBox2.Checked;
+             bool pr3 = checkBox3.Checked;
+             bool pr4 = checkBox4.Checked;
+             bool pr5 = checkBox5.Checked;
+             bool pr6 = checkBox6.Checked;
 
-            if (pr2 == true)
-            {
-                property2.ForeColor = Color.Green;
-            }
-            Console.WriteLine("21");
+             checkBox1.ForeColor = pr1 ? Color.Green : Color.Red;
+
+             if (pr2 == true)
+             {
+                 checkBox2.ForeColor = Color.Green;
+             }
+             Console.WriteLine("21");*/
         }
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
@@ -78,30 +83,13 @@ namespace sstu
 
         private void tableLayoutPanel1_Paint_1(object sender, PaintEventArgs e)
         {
-         
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
 
         }
-
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBox2_CheckedChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBox5_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
 
         }
