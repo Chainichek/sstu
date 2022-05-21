@@ -11,17 +11,27 @@ namespace sstu
         RadioButton[] radioButtons;//массив переключателей
         Generate newGenerator = new Generate();//объект генератора
         Options options = new Options();//объект свойств
+
+        bool buttonIsLocked = false;
         public Form1()
         {
             InitializeComponent();
             this.Text = "Тренажер по бинарным отношениям by Daniyar & Ildar";
-            checkBoxes = new CheckBox[] {checkBox1, checkBox2, checkBox3, checkBox4, checkBox5, checkBox6};
-            radioButtons = new RadioButton[] { radioButton1, radioButton2 }; 
+            checkBoxes = new CheckBox[] { checkBox1, checkBox2, checkBox3, checkBox4, checkBox5, checkBox6 };
+            radioButtons = new RadioButton[] { radioButton1, radioButton2 };
         }
 
         private void refreshScore()
         {
             label3.Text = "Правильных ответов подряд: " + totalScore;
+        }
+        private void lockButton()
+        {
+            button1.Enabled = false;
+        }
+        private void unLockButton()
+        {
+            button1.Enabled = true;
         }
 
         private void Form1_Load(object sender, EventArgs e)//Начальное значение размера генерируемой матрицы - 3
@@ -106,11 +116,13 @@ namespace sstu
                 totalScore = 0;
             }
             refreshScore();
+            lockButton();
             /*genbutton_Click(sender, e);*/
         }
 
         private void genbutton_Click(object sender, EventArgs e)//кнопка генерации
         {
+            unLockButton();
             foreach (CheckBox checkBox in checkBoxes)//исходное состояние чекеров
             {
                 checkBox.Checked = false;
