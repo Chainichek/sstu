@@ -13,7 +13,7 @@ namespace sstu
         public Form1()
         {
             InitializeComponent();
-
+            this.Text = "Тренажер по бинарным отношениям";
             checkBoxes = new CheckBox[] {checkBox1, checkBox2, checkBox3, checkBox4, checkBox5, checkBox6};
             radioButtons = new RadioButton[] { radioButton1, radioButton2 }; 
         }
@@ -44,7 +44,7 @@ namespace sstu
                 dynamicTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
             }
 
-            options.randomize_options();//случайные свойства
+            options.randomize_options();//случайные свойства    
             //string check = options.logOptions();
             int[,] matrix = newGenerator.matrixGenerate(N, ref options);//создание матрицы по введенному числу и свойствам
             //check  +=options.logOptions();
