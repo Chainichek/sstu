@@ -174,7 +174,6 @@
             this.label3.Size = new System.Drawing.Size(54, 15);
             this.label3.TabIndex = 12;
             this.label3.Text = "Очков: 0";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // Form1
             // 

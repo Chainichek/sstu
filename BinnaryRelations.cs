@@ -8,8 +8,9 @@ namespace binaryRelations
 {
     class Reflexive
     {
-        public static bool is_reflexive(int[,] matrix)//проверка рефлексивности
+        public static bool is_reflexive(int[,]? matrix)//проверка рефлексивности
         {
+            if (matrix == null) return false;
             for (int i = 0; i < matrix.GetLength(0); i++)
             {
                 if (matrix[i, i] != 1)
@@ -18,8 +19,9 @@ namespace binaryRelations
 
             return true;
         }
-        public static bool is_antireflexive(int[,] matrix)//проверка антирефлексивности
+        public static bool is_antireflexive(int[,]? matrix)//проверка антирефлексивности
         {
+            if (matrix == null) return false;
             for (int i = 0; i < matrix.GetLength(0); i++)
             {
                 if (matrix[i, i] != 0)
@@ -46,10 +48,20 @@ namespace binaryRelations
 
     class Symmetry
     {
-        public static bool is_asymmetry(int[,] matrix) => Reflexive.is_antireflexive(matrix);
-        public static bool is_antisymmetry(int[,] matrix) => Reflexive.is_reflexive(matrix);//проверка на антисимместричность
-        public static bool is_symmetry(int[,] matrix)//проверка на симметричность
+        public static bool is_asymmetry(int[,]? matrix)
         {
+            if (matrix == null) return false;
+            return Reflexive.is_antireflexive(matrix);
+
+        }
+        public static bool is_antisymmetry(int[,]? matrix)
+        {
+            if (matrix == null) return false;
+            return Reflexive.is_reflexive(matrix);
+        }
+        public static bool is_symmetry(int[,]? matrix)//проверка на симметричность
+        {
+            if (matrix == null) return false;
             for (int i = 0; i < matrix.GetLength(0); i++)
                 for (int j = 0; j < matrix.GetLength(1); j++)
                     if (matrix[i, j] != matrix[j, i])
@@ -68,8 +80,9 @@ namespace binaryRelations
 
     class Transitivity
     {
-        public static bool is_transitive(int[,] matrix)//проверка транзитивности
+        public static bool is_transitive(int[,]? matrix)//проверка транзитивности
         {
+            if (matrix == null) return false;
             for (int i = 0; i < matrix.GetLength(0); i++)
                 for (int j = 0; j < matrix.GetLength(1); j++)
                 {

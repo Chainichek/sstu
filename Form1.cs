@@ -10,10 +10,9 @@ namespace sstu
         int totalScore = 0;
         CheckBox[] checkBoxes;//масив чекеров
         RadioButton[] radioButtons;//массив переключателей
-        Generate newGenerator = new Generate();//объект генератора
-        Options options = new Options();//объект свойств
 
-        bool buttonIsLocked = false;
+        int[,]? matrix;
+        Generate newGenerator = new Generate();//объект генератора
         public Form1()
         {
             InitializeComponent();
@@ -65,11 +64,8 @@ namespace sstu
                 dynamicTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
             }
 
-            options.randomize_options();//случайные свойства
-            string message = options.logOptions();
-            int[,] matrix = newGenerator.matrixGenerate(N, ref options);//создание матрицы по введенному числу и свойствам
-            message += options.logOptions() + "\nbut antireflexive" + Reflexive.is_antireflexive(matrix).ToString();
-            MessageBox.Show(message);
+            matrix = null;//отчистка матрицы
+            matrix = newGenerator.matrixGenerate(N);//создание матрицы по введенному числу и свойствамdsd
             for (int i = 0; i < N; i++)
             {
                 for (int j = 0; j < N; j++)
@@ -80,18 +76,20 @@ namespace sstu
 
             dynamicTableLayoutPanel.CellBorderStyle = TableLayoutPanelCellBorderStyle.OutsetDouble;
 
-/*            dynamicTableLayoutPanel.BackColor = Color.Aqua; //мерзкий цвет - любимый ильдара*/ // обидно((((((((((((((((
+/*            dynamicTableLayoutPanel.BackColor = Color.Aqua; //мерзкий цвет - любимый ильдара*/ // обидно(((((((((((((((( меня таким цветом тошнило после выпускного
             Controls.Add(dynamicTableLayoutPanel);
+
+            checkMessageBox();
         }
         private void checkbutton_Click(object sender, EventArgs e)
         {
             /*массив булевых значений для работы с foreach*/
-            bool[] optionsCheck = new bool[] { options.reflexive, options.antireflexive, options.symmetry, options.asymmetry, options.antisymmetry, options.transitivie };
+            bool[] optionsCheck = new bool[] { Reflexive.is_reflexive(matrix), Reflexive.is_antireflexive(matrix), Symmetry.is_symmetry(matrix), Symmetry.is_asymmetry(matrix), Symmetry.is_antisymmetry(matrix), Transitivity.is_transitive(matrix) };
             /*Объединение с массивом чекеров, чтобы идти по ним одновременно*/
             bool is_win = true; // true - если нет ни одного неправильного ответа
             foreach (var box_options in optionsCheck.Zip(checkBoxes, Tuple.Create))//Новый кортеж элементов
             {
-                if (box_options.Item1)
+                if (box_options.Item1 && box_options.Item2.Checked)
                 {
                     box_options.Item2.ForeColor = Color.Green;
                 }
@@ -144,9 +142,15 @@ namespace sstu
             }
         }
 
-        private void label3_Click(object sender, EventArgs e)
+        private void checkMessageBox()
         {
-
+            bool[] optionsCheck = new bool[] { Reflexive.is_reflexive(matrix), Reflexive.is_antireflexive(matrix), Symmetry.is_symmetry(matrix), Symmetry.is_asymmetry(matrix), Symmetry.is_antisymmetry(matrix), Transitivity.is_transitive(matrix) };
+            string message = new string("");
+            foreach(bool options in optionsCheck)
+            {
+                message += options.ToString();
+            }
+            MessageBox.Show(message);
         }
     }
 }
