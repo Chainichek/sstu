@@ -13,7 +13,7 @@ namespace sstu
         public Form1()
         {
             InitializeComponent();
-            this.Text = "Тренажер по бинарным отношениям";
+            this.Text = "Тренажер по бинарным отношениям by Daniyar & Ildar";
             checkBoxes = new CheckBox[] {checkBox1, checkBox2, checkBox3, checkBox4, checkBox5, checkBox6};
             radioButtons = new RadioButton[] { radioButton1, radioButton2 }; 
         }
