@@ -46,21 +46,9 @@ namespace binaryRelations
 
     class Symmetry
     {
-        public static int symmetry_type(int[,] matrix)//проверка на свойство симметрии, возвращает одно из нижеуказанных состояний
-        {
-            /* Возвращает 0 - Симметричность
-                         1 - Асимметричность
-                         2 - Антисимметричность*/
-            if (!is_symmetry(matrix))
-            {
-                if (is_antisymmetry(matrix))
-                    return 2;
-                return 1;
-            }
-            return 0;
-        }
-        private static bool is_antisymmetry(int[,] matrix) => Reflexive.is_reflexive(matrix);//проверка на антисимместричность
-        private static bool is_symmetry(int[,] matrix)//проверка на симметричность
+        public static bool is_asymmetry(int[,] matrix) => Reflexive.is_antireflexive(matrix);
+        public static bool is_antisymmetry(int[,] matrix) => Reflexive.is_reflexive(matrix);//проверка на антисимместричность
+        public static bool is_symmetry(int[,] matrix)//проверка на симметричность
         {
             for (int i = 0; i < matrix.GetLength(0); i++)
                 for (int j = 0; j < matrix.GetLength(1); j++)

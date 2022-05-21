@@ -10,11 +10,11 @@ namespace matrixGen
     class Generate
     {
         private Random randomgen = new Random();
-        public int[,] matrixGenerate(int N, Options options)//Возвращает готовую матрицу, принимает размер и опции
+        public int[,] matrixGenerate(int N, ref Options options)//Возвращает готовую матрицу, принимает размер и опции
         {
             int[,] matrix = randomGenerate(N);
             matrix = useOptions(matrix, options);
-
+            options.check_options(matrix);
             return matrix;
         }
         private int[,] randomGenerate(int N)//Случайно заполняет биннарную матрицу. Возвращает матрицу
@@ -88,5 +88,28 @@ namespace matrixGen
             transitivie = randombool.Next(2) == 0 ? false : true;
         }
 
+         public void check_options(int[,] matrix)
+        {
+            if (!(reflexive = Reflexive.is_reflexive(matrix)))
+                antireflexive = Reflexive.is_antireflexive(matrix);
+
+            if (!(symmetry = Symmetry.is_symmetry(matrix)))
+            {
+                if (!(antisymmetry = Symmetry.is_antisymmetry(matrix)))
+                    asymmetry = true;
+                else asymmetry = false;
+            }
+            else
+            {
+                antisymmetry = false;
+                asymmetry = false;
+            }
+
+            transitivie = Transitivity.is_transitive(matrix);
+        }
+        public string logOptions()
+        {
+            return reflexive.ToString() + antireflexive.ToString() + symmetry.ToString() + asymmetry.ToString() + antisymmetry.ToString() + transitivie.ToString()  +"\n";
+        }
     }
 }
