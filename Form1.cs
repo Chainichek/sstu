@@ -106,6 +106,7 @@ namespace sstu
                 totalScore = 0;
             }
             refreshScore();
+            genbutton_Click(sender, e);
         }
 
         private void genbutton_Click(object sender, EventArgs e)//кнопка генерации
