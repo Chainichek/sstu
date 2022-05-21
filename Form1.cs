@@ -6,6 +6,7 @@ namespace sstu
     public partial class Form1 : Form
     {
         TableLayoutPanel? dynamicTableLayoutPanel;//генерирующаяся таблица
+        int totalScore = 0;
         CheckBox[] checkBoxes;//масив чекеров
         RadioButton[] radioButtons;//массив переключателей
         Generate newGenerator = new Generate();//объект генератора
@@ -18,6 +19,11 @@ namespace sstu
             radioButtons = new RadioButton[] { radioButton1, radioButton2 }; 
         }
 
+        private void refreshScore()
+        {
+            label3.Text = "Правильных ответов подряд: " + totalScore;
+        }
+
         private void Form1_Load(object sender, EventArgs e)//Начальное значение размера генерируемой матрицы - 3
         {
 
@@ -27,8 +33,12 @@ namespace sstu
         {
             /*Удаление матрицы для перегенерации*/
             if (dynamicTableLayoutPanel != null)
+            {
                 dynamicTableLayoutPanel.Dispose();
+            }
             /*Создание матрицы*/
+            refreshScore();
+
             dynamicTableLayoutPanel = new TableLayoutPanel();
 
             dynamicTableLayoutPanel.Location = new System.Drawing.Point(50, 35);
@@ -60,7 +70,7 @@ namespace sstu
 
             dynamicTableLayoutPanel.CellBorderStyle = TableLayoutPanelCellBorderStyle.OutsetDouble;
 
-/*            dynamicTableLayoutPanel.BackColor = Color.Aqua;//мерзкий цвет - любимый ильдара*/
+/*            dynamicTableLayoutPanel.BackColor = Color.Aqua; //мерзкий цвет - любимый ильдара*/ // обидно((((((((((((((((
             Controls.Add(dynamicTableLayoutPanel);
         }
         private void checkbutton_Click(object sender, EventArgs e)
@@ -68,11 +78,34 @@ namespace sstu
             /*массив булевых значений для работы с foreach*/
             bool[] optionsCheck = new bool[] { options.reflexive, options.antireflexive, options.symmetry, options.asymmetry, options.antisymmetry, options.transitivie };
             /*Объединение с массивом чекеров, чтобы идти по ним одновременно*/
+            bool is_win = true; // true - если нет ни одного неправильного ответа
             foreach (var box_options in optionsCheck.Zip(checkBoxes, Tuple.Create))//Новый кортеж элементов
             {
-                box_options.Item2.ForeColor = (box_options.Item1)? Color.Green : box_options.Item2.Checked ? Color.Red : Color.Black;//Если значение выбрано и оно  в списке свойств 
+                if (box_options.Item1)
+                {
+                    box_options.Item2.ForeColor = Color.Green;
+                }
+                else if (box_options.Item2.Checked)
+                {
+                    box_options.Item2.ForeColor = Color.Red;
+                    is_win = false;
+                }
+                else
+                {
+                    box_options.Item2.ForeColor = Color.Black;
+                }
+                 //Если значение выбрано и оно  в списке свойств 
                 box_options.Item2.AutoCheck = false;//Выключить изменение чекера
             }
+            if (is_win)
+            {
+                totalScore++;
+            }
+            else
+            {
+                totalScore = 0;
+            }
+            refreshScore();
         }
 
         private void genbutton_Click(object sender, EventArgs e)//кнопка генерации
@@ -96,6 +129,11 @@ namespace sstu
                             break;
                     }
             }
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

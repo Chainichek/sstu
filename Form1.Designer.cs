@@ -40,6 +40,7 @@
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
@@ -165,11 +166,22 @@
             this.label2.TabIndex = 11;
             this.label2.Text = "Свойства";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(49, 22);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(54, 15);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Очков: 0";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(723, 369);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.radioButton2);
@@ -204,5 +216,6 @@
         private RadioButton radioButton2;
         private Label label1;
         private Label label2;
+        private Label label3;
     }
 }
