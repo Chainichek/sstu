@@ -5,6 +5,7 @@ namespace sstu
 {
     public partial class Form1 : Form
     {
+        const int startSizeMatrix = 3;
         TableLayoutPanel? dynamicTableLayoutPanel;//генерирующа€с€ таблица
         int totalScore = 0;
         CheckBox[] checkBoxes;//масив чекеров
@@ -37,7 +38,7 @@ namespace sstu
         private void Form1_Load(object sender, EventArgs e)//Ќачальное значение размера генерируемой матрицы - 3
         {
 
-            dynamicTableLayoutPanelCreate(3);
+            dynamicTableLayoutPanelCreate(startSizeMatrix);
         }
         private void dynamicTableLayoutPanelCreate(int N)
         {
@@ -87,8 +88,8 @@ namespace sstu
         {
             /*массив булевых значений дл€ работы с foreach*/
             bool[] optionsCheck = new bool[] { options.reflexive, options.antireflexive, options.symmetry, options.asymmetry, options.antisymmetry, options.transitivie };
-            /*ќбъединение с массивом чекеров, чтобы идти по ним одновременно*/
             bool is_win = true; // true - если нет ни одного неправильного ответа
+            /*ќбъединение с массивом чекеров, чтобы идти по ним одновременно*/
             foreach (var box_options in optionsCheck.Zip(checkBoxes, Tuple.Create))//Ќовый кортеж элементов
             {
                 if (box_options.Item1)
