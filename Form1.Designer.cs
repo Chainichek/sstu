@@ -41,6 +41,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
@@ -67,7 +68,7 @@
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(561, 231);
+            this.checkBox2.Location = new System.Drawing.Point(580, 231);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(144, 19);
             this.checkBox2.TabIndex = 3;
@@ -87,11 +88,11 @@
             // checkBox4
             // 
             this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(561, 256);
+            this.checkBox4.Location = new System.Drawing.Point(580, 256);
             this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(147, 19);
+            this.checkBox4.Size = new System.Drawing.Size(128, 19);
             this.checkBox4.TabIndex = 1;
-            this.checkBox4.Text = "Антисимметричность";
+            this.checkBox4.Text = "Асимметричность";
             this.checkBox4.UseVisualStyleBackColor = true;
             // 
             // checkBox5
@@ -99,15 +100,15 @@
             this.checkBox5.AutoSize = true;
             this.checkBox5.Location = new System.Drawing.Point(427, 281);
             this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(128, 19);
+            this.checkBox5.Size = new System.Drawing.Size(147, 19);
             this.checkBox5.TabIndex = 4;
-            this.checkBox5.Text = "Асимметричность";
+            this.checkBox5.Text = "Антисимметричность";
             this.checkBox5.UseVisualStyleBackColor = true;
             // 
             // checkBox6
             // 
             this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(561, 281);
+            this.checkBox6.Location = new System.Drawing.Point(580, 281);
             this.checkBox6.Name = "checkBox6";
             this.checkBox6.Size = new System.Drawing.Size(113, 19);
             this.checkBox6.TabIndex = 5;
@@ -139,7 +140,7 @@
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(561, 75);
+            this.radioButton2.Location = new System.Drawing.Point(580, 75);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(49, 19);
             this.radioButton2.TabIndex = 9;
@@ -175,11 +176,21 @@
             this.label3.TabIndex = 12;
             this.label3.Text = "Очков: 0";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(49, 7);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(58, 15);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "Рекорд: 0";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(723, 369);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -216,5 +227,6 @@
         private Label label1;
         private Label label2;
         private Label label3;
+        private Label label4;
     }
 }

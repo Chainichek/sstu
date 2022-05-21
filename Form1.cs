@@ -8,11 +8,11 @@ namespace sstu
     {
         TableLayoutPanel? dynamicTableLayoutPanel;//генерирующаяся таблица
         int totalScore = 0;
+        int maxScore = 0;
         CheckBox[] checkBoxes;//масив чекеров
         RadioButton[] radioButtons;//массив переключателей
 
         int[,]? matrix;
-        Generate newGenerator = new Generate();//объект генератора
         public Form1()
         {
             InitializeComponent();
@@ -24,6 +24,10 @@ namespace sstu
         private void refreshScore()
         {
             label3.Text = "Правильных ответов подряд: " + totalScore;
+        }
+        private void refreshMaxScore()
+        {
+            label4.Text = "Рекорд: " + maxScore;
         }
         private void lockButton()
         {
@@ -65,7 +69,7 @@ namespace sstu
             }
 
             matrix = null;//отчистка матрицы
-            matrix = newGenerator.matrixGenerate(N);//создание матрицы по введенному числу и свойствамdsd
+            matrix = Generate.matrixGenerate(N);//создание матрицы по введенному числу и свойствамdsd
             for (int i = 0; i < N; i++)
             {
                 for (int j = 0; j < N; j++)
@@ -79,28 +83,28 @@ namespace sstu
 /*            dynamicTableLayoutPanel.BackColor = Color.Aqua; //мерзкий цвет - любимый ильдара*/ // обидно(((((((((((((((( меня таким цветом тошнило после выпускного
             Controls.Add(dynamicTableLayoutPanel);
 
-            checkMessageBox();
+            //checkMessageBox();
         }
         private void checkbutton_Click(object sender, EventArgs e)
         {
             /*массив булевых значений для работы с foreach*/
-            bool[] optionsCheck = new bool[] { Reflexive.is_reflexive(matrix), Reflexive.is_antireflexive(matrix), Symmetry.is_symmetry(matrix), Symmetry.is_asymmetry(matrix), Symmetry.is_antisymmetry(matrix), Transitivity.is_transitive(matrix) };
+            bool[] optionsCheck = Generate.getOptions(matrix);
             /*Объединение с массивом чекеров, чтобы идти по ним одновременно*/
             bool is_win = true; // true - если нет ни одного неправильного ответа
             foreach (var box_options in optionsCheck.Zip(checkBoxes, Tuple.Create))//Новый кортеж элементов
             {
-                if (box_options.Item1 && box_options.Item2.Checked)
+                if (box_options.Item1)
                 {
                     box_options.Item2.ForeColor = Color.Green;
+                    if (!box_options.Item2.Checked)
+                    {
+                        is_win = false;
+                    }
                 }
                 else if (box_options.Item2.Checked)
                 {
                     box_options.Item2.ForeColor = Color.Red;
                     is_win = false;
-                }
-                else
-                {
-                    box_options.Item2.ForeColor = Color.Black;
                 }
                  //Если значение выбрано и оно  в списке свойств 
                 box_options.Item2.AutoCheck = false;//Выключить изменение чекера
@@ -113,9 +117,15 @@ namespace sstu
             {
                 totalScore = 0;
             }
+
+            if (totalScore > maxScore)
+            {
+                maxScore = totalScore;
+                refreshMaxScore();
+            }
+
             refreshScore();
             lockButton();
-            /*genbutton_Click(sender, e);*/
         }
 
         private void genbutton_Click(object sender, EventArgs e)//кнопка генерации
@@ -144,7 +154,7 @@ namespace sstu
 
         private void checkMessageBox()
         {
-            bool[] optionsCheck = new bool[] { Reflexive.is_reflexive(matrix), Reflexive.is_antireflexive(matrix), Symmetry.is_symmetry(matrix), Symmetry.is_asymmetry(matrix), Symmetry.is_antisymmetry(matrix), Transitivity.is_transitive(matrix) };
+            bool[] optionsCheck = Generate.getOptions(matrix);
             string message = new string("");
             foreach(bool options in optionsCheck)
             {

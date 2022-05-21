@@ -9,14 +9,14 @@ namespace matrixGen
 {
     class Generate
     {
-        private Random randomgen = new Random();
-        public int[,] matrixGenerate(int N)//Возвращает готовую матрицу, принимает размер и опции
+        private static Random randomgen = new Random();
+        public static int[,] matrixGenerate(int N)//Возвращает готовую матрицу, принимает размер и опции
         {
             int[,] matrix = randomGenerate(N);
             matrix = randomOptions(matrix);
             return matrix;
         }
-        private int[,] randomGenerate(int N)//Случайно заполняет биннарную матрицу. Возвращает матрицу
+        private static int[,] randomGenerate(int N)//Случайно заполняет биннарную матрицу. Возвращает матрицу
         {
             int[,] temp = new int[N, N];
             for (int i = 0; i < N; i++)
@@ -24,7 +24,7 @@ namespace matrixGen
                     temp[i, j] = randomgen.Next(2);
             return temp;
         }
-        private int[,] randomOptions(int[,] matrix)//Возвращает матрицу, имеющую указанные свойства
+        private static int[,] randomOptions(int[,] matrix)//Возвращает матрицу, имеющую указанные свойства
         {
             if (randomgen.Next(2) == 1)
             {
@@ -52,6 +52,18 @@ namespace matrixGen
             if (randomgen.Next(2) == 1)
                 Transitivity.make_transitive(ref matrix);
             return matrix;
+        }
+        public static bool[] getOptions(int[,]? matrix)
+        {
+            bool[] options = new bool[6];
+            options[0] = Reflexive.is_reflexive(matrix);
+            options[1] = !options[0] && Reflexive.is_antireflexive(matrix);
+            options[2] = Symmetry.is_symmetry(matrix);
+            options[3] = !options[2] && options[1];
+            options[4] = !options[2] && options[0];
+            options[5] = Transitivity.is_transitive(matrix);
+
+            return options;
         }
     }
 }
