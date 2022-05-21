@@ -90,10 +90,11 @@ namespace matrixGen
 
          public void check_options(int[,] matrix)
         {
-            if (!(reflexive = Reflexive.is_reflexive(matrix)))
-                antireflexive = Reflexive.is_antireflexive(matrix);
+            reflexive = Reflexive.is_reflexive(matrix);
+            antireflexive = Reflexive.is_antireflexive(matrix);
 
-            if (!(symmetry = Symmetry.is_symmetry(matrix)))
+            symmetry = Symmetry.is_symmetry(matrix);
+            if (!symmetry)
             {
                 antireflexive =  reflexive;
                 asymmetry = antireflexive;

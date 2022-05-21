@@ -10,9 +10,9 @@ namespace binaryRelations
     {
         public static bool is_reflexive(int[,] matrix)//проверка рефлексивности
         {
-            for (int i = 0, j = 0; i < matrix.GetLength(0); i++, j++)
+            for (int i = 0; i < matrix.GetLength(0); i++)
             {
-                if (matrix[i, j] == 0)
+                if (matrix[i, i] != 1)
                     return false;
             }
 
@@ -20,9 +20,9 @@ namespace binaryRelations
         }
         public static bool is_antireflexive(int[,] matrix)//проверка антирефлексивности
         {
-            for (int i = 0, j = 0; i < matrix.GetLength(0); i++, j++)
+            for (int i = 0; i < matrix.GetLength(0); i++)
             {
-                if (matrix[i, j] == 1)
+                if (matrix[i, i] != 0)
                     return false;
             }
 
@@ -30,16 +30,16 @@ namespace binaryRelations
         }
         public static void make_reflexive(ref int[,] matrix)//приведение ссылки на матрицу к рефлексивности
         {
-            for (int i = 0, j = 0; i < matrix.GetLength(0); i++, j++)
+            for (int i = 0; i < matrix.GetLength(0); i++)
             {
-                matrix[i, j] = 1;
+                matrix[i, i] = 1;
             }
         }
         public static void make_antireflexive(ref int[,] matrix)//приведение ссылки на матрицу к антирефлексивности
         {
-            for (int i = 0, j = 0; i < matrix.GetLength(0); i++, j++)
+            for (int i = 0; i < matrix.GetLength(0); i++)
             {
-                matrix[i, j] = 0;
+                matrix[i, i] = 0;
             }
         }
     }
@@ -73,16 +73,15 @@ namespace binaryRelations
             for (int i = 0; i < matrix.GetLength(0); i++)
                 for (int j = 0; j < matrix.GetLength(1); j++)
                 {
-                    if (i == j || matrix[i, j] == 0) continue;//пропуск дальнейших действий для всех несуществующих дуг для матрицы смежности
+                    //Будет ли графы с 1 дугой транзитивны?
+                    //if (i == j) continue; 
 
-                    for (int k = 0; k < matrix.GetLength(1); k++)
-                    {
-                        if (k != j)
-                            if (!(matrix[i, k] != 0 && matrix[i, k] == matrix[j, k]))
-                                /*если при проходе по столбцам нашлось k отличное от j, что не равно 0 и существует такой элемент и параллельный ему, не равные 0
-                                причём оный находится на j строке, то транзитивность выполняется. Если хотя бы где-то нет - то не выполняется*/
-                                return false;
-                    }
+                    int temp = 0;
+                    for (int k = 0; k < matrix.GetLength(0); k++)
+                        temp += matrix[i, k]  * matrix[j, k];
+                    if (temp > 0) temp = 1;
+
+                    if (temp > matrix[i, j]) return false;
                 }
             return true;
         }

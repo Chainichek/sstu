@@ -1,11 +1,11 @@
 using System.Data;
 using matrixGen;
+using binaryRelations;
 
 namespace sstu
 {
     public partial class Form1 : Form
     {
-        const int startSizeMatrix = 3;
         TableLayoutPanel? dynamicTableLayoutPanel;//генерирующаяся таблица
         int totalScore = 0;
         CheckBox[] checkBoxes;//масив чекеров
@@ -38,7 +38,7 @@ namespace sstu
         private void Form1_Load(object sender, EventArgs e)//Начальное значение размера генерируемой матрицы - 3
         {
 
-            dynamicTableLayoutPanelCreate(startSizeMatrix);
+            dynamicTableLayoutPanelCreate(3);
         }
         private void dynamicTableLayoutPanelCreate(int N)
         {
@@ -65,9 +65,11 @@ namespace sstu
                 dynamicTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
             }
 
-            options.randomize_options();//случайные свойства    
+            options.randomize_options();//случайные свойства
+            string message = options.logOptions();
             int[,] matrix = newGenerator.matrixGenerate(N, ref options);//создание матрицы по введенному числу и свойствам
-
+            message += options.logOptions() + "\nbut antireflexive" + Reflexive.is_antireflexive(matrix).ToString();
+            MessageBox.Show(message);
             for (int i = 0; i < N; i++)
             {
                 for (int j = 0; j < N; j++)
@@ -85,8 +87,8 @@ namespace sstu
         {
             /*массив булевых значений для работы с foreach*/
             bool[] optionsCheck = new bool[] { options.reflexive, options.antireflexive, options.symmetry, options.asymmetry, options.antisymmetry, options.transitivie };
-            bool is_win = true; // true - если нет ни одного неправильного ответа
             /*Объединение с массивом чекеров, чтобы идти по ним одновременно*/
+            bool is_win = true; // true - если нет ни одного неправильного ответа
             foreach (var box_options in optionsCheck.Zip(checkBoxes, Tuple.Create))//Новый кортеж элементов
             {
                 if (box_options.Item1)
