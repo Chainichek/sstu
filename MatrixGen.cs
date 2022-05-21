@@ -95,9 +95,8 @@ namespace matrixGen
 
             if (!(symmetry = Symmetry.is_symmetry(matrix)))
             {
-                if (!(antisymmetry = Symmetry.is_antisymmetry(matrix)))
-                    asymmetry = true;
-                else asymmetry = false;
+                antireflexive =  reflexive;
+                asymmetry = antireflexive;
             }
             else
             {

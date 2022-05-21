@@ -66,10 +66,7 @@ namespace sstu
             }
 
             options.randomize_options();//случайные свойства    
-            //string check = options.logOptions();
             int[,] matrix = newGenerator.matrixGenerate(N, ref options);//создание матрицы по введенному числу и свойствам
-            //check  +=options.logOptions();
-            //MessageBox.Show(check);
 
             for (int i = 0; i < N; i++)
             {
