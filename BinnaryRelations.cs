@@ -83,11 +83,14 @@ namespace binaryRelations
         public static bool is_transitive(int[,]? matrix)//проверка транзитивности
         {
             if (matrix == null) return false;
+
+            int check = 0;
             for (int i = 0; i < matrix.GetLength(0); i++)
                 for (int j = 0; j < matrix.GetLength(1); j++)
                 {
                     //Будет ли графы с 1 дугой транзитивны?
-                    //if (i == j) continue; 
+                    if (i == j) continue;
+                    if (matrix[i, j] != 0) check++;
 
                     int temp = 0;
                     for (int k = 0; k < matrix.GetLength(0); k++)
@@ -96,6 +99,7 @@ namespace binaryRelations
 
                     if (temp > matrix[i, j]) return false;
                 }
+            if (check == 0) return false;
             return true;
         }
 
